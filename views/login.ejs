@@ -1,0 +1,45 @@
+<%- include("partials/header"); -%>
+
+    <div class="container">
+
+      <div class="columns is-centered">
+
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+
+          <form method="post" action="/login" class="box">
+
+            <div class="field">
+              <label for="" class="label">Utilisateur</label>
+              <div class="control has-icons-left">
+                <input type="text" class="input" name="username" placeholder="admin" required>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user-shield"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="" class="label">Mot de Passe</label>
+              <div class="control has-icons-left">
+                <input type="password" class="input" name="password" required>
+                <span class="icon is-small is-left">
+                  <i class="fa fa-lock"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+                <button class="button" type="submit" name="login">Se connecter</button>
+            </div>  
+
+
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+<%- include("partials/footer"); -%>

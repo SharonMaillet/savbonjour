@@ -1,0 +1,138 @@
+<%- include("partials/header"); -%>
+
+<div class="level">
+    <h1 class="title">Liste des SAVs</h1>   
+    <input type="text" placeholder="Rechercher un SAV" id="searchbar" onkeyup="search()" name="search">
+</div>
+
+<script>
+function search() {
+  // Declare variables 
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("searchbar");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("input")[0];
+    if (td) {
+      txtValue = td.value;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>
+<table class="table is-bordered is-striped is-narrow is-hoverable" id='myTable'>
+  
+  <thead>
+    <tr class="header">
+      <th hidden>Id MongoDB</th>
+      <th>Nom de l'entreprise</th>
+      <th>Numéro de téléphone 1</th>
+      <th>Numéro de téléphone 2</th>
+      <th>Mail</th>
+      <th>Type</th>
+      <th>Logo</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+
+  
+    <% companies.forEach(function(company){ %>
+  
+    <tr class="compName">
+      <form action="/admin-edit" method="post" id="<%= company._id %>">
+        <input type="text" value="<%= company._id %>" name="id" style="display: none">
+        <td> <input name="name" class="readonly <%= company._id %>" type="text" value="<%= company.name %>" style="border: none"> </td>
+        <td> <input name="phone" class="readonly <%= company._id %>" type="text" value="<%= company.phone %>" readonly style="border: none"> </td>
+        <td> <input name="phone2" class="readonly <%= company._id %>" type="text" value="<%= company.phone2 %>" readonly style="border: none"> </td>
+        <td> <input name="mail" class="readonly <%= company._id %>" type="text" value="<%= company.mail %>" readonly style="border: none"> </td>
+        <td> <input name="type" class="readonly <%= company._id %>" type="text" value="<%= company.type %>" readonly style="border: none"> </td>
+        <td> <%= company.filename %> </td>
+      </form>
+        <td>
+          <button onclick="return valider()" class="button is-primary valider" style="display: none"  form="<%= company._id %>"  type="submit">Valider</button>
+          <button onclick="return edit(this)" class="button is-primary editer">Editer</button>
+        </td>
+      
+        <td>
+          <form method="post" action="/admin-delete" id="del<%= company._id %>">
+            <input type="text" value="<%= company._id %>" name="suppr" style="display: none">
+            <button class="button" type="submit" form="del<%= company._id %>"><i class="fas fa-trash-alt"></i></button>
+          </form>
+        </td>
+    </tr>
+  
+    <% }) %>
+  
+    <tr id="add" class="addForm" style="display: none;">
+      <form action="/admin" method="post">
+        <td><input class="input" type="text" placeholder="Nom Entreprise" name="name" required></td>
+        <td><input class="input" type="text" placeholder="Numéro Téléphone" name="phone" required></td>
+        <td><input class="input" type="text" placeholder="Numéro Téléphone" name="phone2"></td>
+        <td><input class="input" type="text" placeholder="Adresse Email" name="mail"></td>
+  
+        <td>
+          <select name="type" class="select input">
+            <option value="hardware">Hardware</option>
+            <option value="computer">Computer</option>
+            <option value="phone">Phone</option>
+            <option value="computer phone">Computer phone</option>
+            <option value=">hardware phone">Hardware Phone</option>
+            <option value="hardware computer">Hardware Computer</option>
+            <option value="hardware computer phone">Hardware Phone Computer</option>
+          </select>
+        </td>  
+        <td> <input class="button is-primary is-outlined" type="submit" value="Ajouter" name="button"> </td>
+      </form>
+  
+    </tr>
+
+
+
+</table>
+
+
+<div class="addComp">
+  <input class="button is-primary is-outlined" type="button" onclick="return ShowAdd()" value="Ajouter une adresse">
+</div>
+
+<script>
+
+function ShowAdd() {
+  var x = document.getElementById("add");
+  if (x.style.display === "none") {
+    x.style.display = ""
+  } else {
+    x.style.display = "none"
+  }
+ } 
+
+function edit(theRow) {
+  var getTr = theRow.parentNode.parentNode;
+  var cellArray =  getTr.getElementsByClassName('readonly');
+
+ for (let i = 0; i < cellArray.length; i++) {
+  var removeReadOnly = cellArray[i].removeAttribute('readonly');
+  }
+
+  var hideEdit = getTr.getElementsByClassName('editer');
+  var displayValider = getTr.getElementsByClassName('valider');
+  
+  hideEdit[0].style.display = 'none';
+  displayValider[0].style.display = ''
+
+  console.log(displayValider)
+  
+}
+</script>
+
+
+<%- include("partials/footer"); -%>

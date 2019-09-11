@@ -1,0 +1,108 @@
+body {
+    width: 80%;
+    margin: auto;
+}
+
+.hero.has-background {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-background.is-transparent {
+  opacity: 0.3;
+}
+
+.level {
+  margin: 5rem 0rem 5rem;
+}
+
+hr {
+ 	width: 50%;
+	height: 30px;
+  border-bottom: 1px solid rgb(92, 233, 191);
+	box-shadow: 0 0.625rem 1.875rem -0.625rem rgb(92, 233, 191);
+  margin: 0px auto 5rem; 
+}
+
+.footer {
+  margin-top: 5rem
+}
+
+.header {
+    margin-bottom: 1rem
+}
+
+.message {
+  width: 70%;
+  margin: 2rem auto 2rem;
+}
+
+.fa-phone-square {
+  font-size: 5rem;
+}
+
+.img-logo {
+  margin: auto;
+}
+
+.table {
+  margin: auto;
+}
+
+.addComp {
+  text-align: center;
+}
+
+.liste-sav {
+  width: 60%;
+  margin: auto;
+}
+
+.searchbar {
+  width: 50%;
+  margin: 2rem auto 2.5rem;
+}
+
+.compName {
+  display: "";
+}
+
+
+/*EQUAL HEIGT CARDS*/
+
+.card-equal-height {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+}
+.card-equal-height .card-footer {
+  margin-top: auto;
+}
+.card{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 0.5rem;
+}
+
+.logoimg{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 0.5rem;
+	width: 10em;
+	height: 10em;
+
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-logo {
+  width: 20em;
+	height: 20em;
+}

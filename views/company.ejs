@@ -1,0 +1,62 @@
+<%- include("partials/header"); -%>
+
+
+
+
+  
+<div class="box">
+
+<article class="message is-primary">
+  <div class="message-body">
+    <h1 class="is-size-1"> <%= name %> </h1>
+  </div>
+</article>
+
+<figure class="img-logo image">
+  <img src="/upload/<%=filename%>" alt="<%=filename%>">
+</figure>
+
+<article class="message is-primary">
+  <div class="message-header">
+    <p>Numéro de téléphone</p>
+  </div>
+
+  <div class="message-body is-size-2">
+  <i class="fas fa-phone-square has-text-primary"></i> <%= phone %>
+  </div>
+</article>
+
+<% if(phone2) { %>
+
+  <article class="message is-primary">
+     <div class="message-header">
+      <p>Numéro de téléphone</p>
+     </div>
+
+     <div class="message-body is-size-2">
+      <i class="fas fa-phone-square has-text-primary"></i> <%= phone2 %>
+     </div>
+  </article>
+
+<% } %>
+
+<% if(mail) { %>
+
+  <article class="message is-primary">
+    <div class="message-header">
+      <p>Adresse Email</p>
+    </div>
+
+    <div class="message-body is-size-2">
+      <i class="fas fa-at has-text-primary"></i> <%= mail %>
+    </div>
+  </article>
+
+<% } %>
+</div>
+
+
+
+</div>
+
+<%- include("partials/footer"); -%>

@@ -1,0 +1,155 @@
+<%- include("partials/header"); -%>
+
+<div class="hero is-large is-primary has-background">
+  <img alt="sav-ordinateur" class="hero-background is-transparent" src="/img/sav1.jpg" />
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Un problème avec votre matériel ?
+      </h1>
+      <h3 class="subtitle">
+        Retrouvez toutes les adresses des SAVs de vos marques préféré
+      </h3>
+    </div>
+  </div>
+</div>
+
+<!-- Begin Mailchimp Signup Form -->
+
+ 
+
+<!--End mc_embed_signup-->
+<form action="https://myshopify.us17.list-manage.com/subscribe/post?u=70aaa778933e7a2da592705b2&amp;id=338d6708d1"
+    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+    novalidate>
+
+  <div class="level" id="mc_embed_signup">
+
+    <div id="mc_embed_signup_scroll" class="level-item has-text-centered">
+      <label for="mce-EMAIL" class="subtitle">
+       <p class="subtitle">
+        Soyez informer des dernieres nouveautés :
+      </p>
+      </label>
+    </div>
+    
+    <div class="level-item">
+      <input type="email" value="" name="EMAIL" class="email input" id="mce-EMAIL" placeholder="Votre adresse email" required>
+    </div>
+    
+    <div class="level-item has-text-centered">
+      <input class="button is-primary is-medium" type="submit" value="S'inscrire" name="subscribe" id="mc-embedded-subscribe" >
+    </div>
+
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+              name="b_70aaa778933e7a2da592705b2_338d6708d1" tabindex="-1" value=""></div>
+          <div class="clear">
+          </div>
+  </div>
+</form>
+
+
+
+
+
+<nav class="level">
+
+  <!-- Left side -->
+  <div class="level-left">
+    <div class="level-item">
+      <h1 class="title">
+        Qui voulez-vous contacter ?
+      </h1>
+    </div>
+  </div>
+
+  <!-- Right side -->
+  <div class="level-right">
+    <div class="field has-addons">
+
+      <p class="control has-icons-left">
+        <input class="input is-primary" type="text" placeholder="Rechercher un SAV" id="searchbar" onkeyup="search()" name="search">
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </p>
+
+    </div>
+  </div>
+ 
+</nav>
+
+
+<script>
+
+   function search() { 
+    let input = document.getElementById('searchbar').value;
+    input= input.toLowerCase(); 
+    let x = document.getElementsByClassName('compName'); 
+    let y = document.getElementsByClassName('displayNone');
+      
+    for (let i = 0; i < x.length; i++) {  
+        
+        if (!x[i].innerHTML.toLowerCase().includes(input)) { 
+            y[i].style.display="none"; 
+            console.log(none[i]);
+        } 
+        else { 
+             y[i].style.display="";                  
+        } 
+    }
+}
+
+</script>
+
+
+
+<div>
+   <p>
+  Afin de s’adapter aux besoins de tous, les SAV des marques et des enseignes vous donnent plusieurs options pour les contacter. 
+  Et comme chaque problème à sa méthode de préférence, Les-SAV.fr vous guide dans le moyen de prédilection selon votre problème 
+  et vous fournit surtout toutes les options qui s’offrent à vous. Vous trouverez ainsi toutes les coordonnées pour contacter les services clients
+  </p> 
+</div>
+
+
+<br><br>
+<hr>
+
+<div>
+  <div class="columns is-multiline">
+
+<% companies.forEach(function(company){ %> 
+
+    <div class="column is-one-quarter displayNone">
+      <div class="card card-equal-height" id="none">
+
+        <div class="card-content">
+          <p class="title">
+            <img src="/upload/<%=company.filename%>" alt="logo-orange" class='logoimg'>
+          </p>
+          <p class="has-text-centered compName title"> <%= company.name %> </p>
+        </div>
+
+        <a  href="/company/<%= company.name %>"> 
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              <span>
+                Voir les adresses
+              </span>
+            </p>
+          </footer>
+        </a> 
+
+      </div>
+    </div> 
+    
+<% }) %>
+
+
+  </div>
+</div>
+
+
+<%- include("partials/footer"); -%>
