@@ -1,3 +1,92 @@
+<script>
+    function search() {
+
+      let input = document.getElementById('searchbar').value.toLowerCase(); //On each keypress, get the value of what user is typing. Put it in lowerwcase
+      x = document.getElementsByClassName('compName');
+      y = document.getElementsByClassName('displayNone');
+
+      for (let i = 0; i < x.length; i++) {
+        if (!x[i].innerHTML.toLowerCase().includes(input)) {
+          y[i].style.display = "none";
+        } else {
+          y[i].style.display = "";
+        }
+      }
+    }
+
+
+    function searchTable() {
+        // Declare variables 
+        let input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchbar");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("input")[0];
+          if (td) {
+            txtValue = td.value;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+    }
+
+    function ShowAdd() { // Show the form to add a company
+        let x = document.getElementById("add")
+
+        if (x.style.display === "none") {
+          x.style.display = ""
+        } else {
+          x.style.display = "none"
+        }
+    }
+
+    function edit(theRow) { 
+        let getTr = theRow.parentNode.parentNode; //get parent of 'button', so 'td', then parent of 'td', so 'tr'
+        let cellArray = getTr.getElementsByClassName('readonly'); //get all readonly element to make them editable later
+
+        for (let i = 0; i < cellArray.length; i++) {
+          let removeReadOnly = cellArray[i].removeAttribute('readonly'); //remove the readonly attribute
+        }
+
+        //TO HIDE AND DISPLAY "EDITER" AND "VALIDER" buttons
+        let hideEdit = getTr.getElementsByClassName('editer');
+        hideEdit[0].style.display = 'none';
+        let displayValider = getTr.getElementsByClassName('valider');
+        displayValider[0].style.display = '';
+
+        //TO HIDE AND DISPLAY THE TYPES
+        let hideInput = getTr.getElementsByClassName('selectInput');
+        hideInput[0].style.display = "none";
+        let displaySelect = getTr.getElementsByClassName("selectTypeEdit");
+        displaySelect[0].style.display = '';
+
+        let originalType = hideInput[0].id; //get id value, which is the original company type
+
+        let arrayOption = getTr.getElementsByClassName("selectTypeEdit");
+        let getOption = arrayOption[0].options; //get options of my select element for editing
+
+        // if my loop through option and set attribute selected at my original type 
+        for (let i = 0; i < getOption.length; i++) {
+          if (getOption[i].innerText.toLowerCase() === originalType) {
+            getOption[i].setAttribute('selected', 'selected')
+          }
+        }
+
+        //TO HIDE AND DISPLAY THE FILES INPUT
+        let fileInput = getTr.getElementsByClassName('fileInput')
+        fileInput[0].style.display = "none";
+
+        let displayFile = getTr.getElementsByClassName("fileEdit")
+        displayFile[0].style.display = '';
+      }
+</script>
+
 
 </div>
 <footer class="footer has-background-primary	">

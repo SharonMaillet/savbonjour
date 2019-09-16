@@ -1,7 +1,7 @@
 <%- include("partials/header"); -%>
 
-<div class="has-text-centered title">
-  <p>Liste des SAVs</p>
+<div class="has-text-centered">
+  <h1>Liste des SAVs</h1>
 
 <div class="control has-icons-left has-icons-right searchbar">
   <input class="input is-primary" type="text" placeholder="Rechercher un SAV" id="searchbar" onkeyup="search()" name="search">
@@ -10,34 +10,10 @@
   </span>
 </div>
 
-</div>
-
- <script>
-
-   function search() { 
-    let input = document.getElementById('searchbar').value 
-    input= input.toLowerCase(); 
-    let x = document.getElementsByClassName('compName'); 
-    let y = document.getElementsByClassName('displayNone')
-      
-    for (let i = 0; i < x.length; i++) {  
-        
-        if (!x[i].innerHTML.toLowerCase().includes(input)) { 
-            y[i].style.display="none"; 
-            console.log(none[i]);
-        } 
-        else { 
-             y[i].style.display="";                 
-        } 
-    }
-}
-
-</script>
-
 <div>
   <div class="columns is-multiline">
 
-    <% companies.forEach(function(company){ %>
+<% companies.forEach(function(company){ %> 
 
     <div class="column is-one-quarter displayNone">
       <div class="card card-equal-height" id="none">
@@ -46,10 +22,10 @@
           <p class="title">
             <img src="/upload/<%=company.filename%>" alt="logo-orange" class='logoimg'>
           </p>
-          <p class="has-text-centered compName title"> <%= company.name %> </p>
+          <p class="has-text-centered compName"> <%= company.name %> </p>
         </div>
 
-        <a href="/company/<%= company.name %>">
+        <a href="/company/<%= company.name %>"> 
           <footer class="card-footer">
             <p class="card-footer-item">
               <span>
@@ -57,15 +33,12 @@
               </span>
             </p>
           </footer>
-        </a>
+        </a> 
 
       </div>
-    </div>
-
-    <% }) %>
-
-
+    </div> 
+    
+<% }) %>
   </div>
 </div>
-
 <%- include("partials/footer"); -%>

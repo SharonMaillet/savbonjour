@@ -3,6 +3,25 @@ body {
     margin: auto;
 }
 
+.footer {
+  margin-top: 5rem
+}
+
+.header {
+  margin-bottom: 1rem
+}
+
+h1 {
+  font-size: 3vw;
+}
+
+a {
+  color: hsl(171, 100%, 41%);
+}
+
+/** HOME PAGE */
+
+  /*HERO BANNER*/
 .hero.has-background {
   position: relative;
   overflow: hidden;
@@ -20,6 +39,8 @@ body {
   opacity: 0.3;
 }
 
+  /*SAV LIST*/
+
 .level {
   margin: 5rem 0rem 5rem;
 }
@@ -32,13 +53,8 @@ hr {
   margin: 0px auto 5rem; 
 }
 
-.footer {
-  margin-top: 5rem
-}
 
-.header {
-    margin-bottom: 1rem
-}
+/*? COMPANY PAGE*/
 
 .message {
   width: 70%;
@@ -46,12 +62,20 @@ hr {
 }
 
 .fa-phone-square {
-  font-size: 5rem;
+  font-size: 5vw;
 }
 
 .img-logo {
+  width: 20vw;
+  height: 20vw;
   margin: auto;
 }
+
+.p-company {
+  font-size: 2vw;
+}
+
+/*! ADMIN PAGE */
 
 .table {
   margin: auto;
@@ -59,11 +83,6 @@ hr {
 
 .addComp {
   text-align: center;
-}
-
-.liste-sav {
-  width: 60%;
-  margin: auto;
 }
 
 .searchbar {
@@ -76,7 +95,7 @@ hr {
 }
 
 
-/*EQUAL HEIGT CARDS*/
+/**EQUAL HEIGT CARDS*/
 
 .card-equal-height {
    display: flex;
@@ -86,23 +105,29 @@ hr {
 .card-equal-height .card-footer {
   margin-top: auto;
 }
+
 .card{
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 0.5rem;
 }
 
 .logoimg{
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
-	border-radius: 0.5rem;
-	width: 10em;
-	height: 10em;
-
-    display: block;
+  border-radius: 0.5rem;
+	width: 13vw;
+	height: 13vw;
+  display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-.img-logo {
-  width: 20em;
-	height: 20em;
+/* For Firefox */
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

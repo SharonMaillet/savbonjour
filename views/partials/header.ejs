@@ -3,42 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!--Responsive Meta Tag for BULMA-->
-    <title>SAV, bonjour !</title>
+    <meta name="description" content="Tout savoir sur les SAVs des marques les plus populaires ! Un problème avec votre matériel mais impossible de trouver un numéro de SAV ? C'est ici que vous le trouverez !" />
+    <meta name="keywords" content="sav, informatique, matériel, ordinateur, téléphone, annuaire" />
+    <title>SAV, bonjour - Les pages jaunes des SAVs !</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"> <!-- BULMA CDN-->
     <link rel="stylesheet" href="/css/styles.css"> <!-- Mon stylesheet-->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> <!-- Font Awesome-->
   </head>
 
   <body> <!--Debut du body (fin du body dans le footer) -->
-
-<!--<nav class="header navbar is-primary">
-  
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/">
-      <img src="/img/logosav.png" alt="logo-sav-bonjour">
-    </a>
-
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-
-  </div>
-
-  <div id="navbarExampleTransparentExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="/">
-        Accueil
-      </a>
-
-      <a class="navbar-item" href="/savs">
-        Liste des SAVs
-      </a>
-      </div>
-    </div>
-
-</nav> -->
 
 <nav class="header navbar is-primary" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
@@ -66,31 +39,24 @@
   </div>
 </nav>
 
-
+<!--GIVEN BY BULMA FOR THE BURGER-->
 <script>
       document.addEventListener('DOMContentLoaded', () => {
-
           // Get all "navbar-burger" elements
           const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
           // Check if there are any navbar burgers
           if ($navbarBurgers.length > 0) {
-
             // Add a click event on each of them
             $navbarBurgers.forEach(el => {
               el.addEventListener('click', () => {
-
                 // Get the target from the "data-target" attribute
                 const target = el.dataset.target;
                 const $target = document.getElementById(target);
-
                 // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
                 el.classList.toggle('is-active');
                 $target.classList.toggle('is-active');
-
               });
             });
           }
-
-        });
+      });
 </script>
