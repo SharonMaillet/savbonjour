@@ -1,6 +1,6 @@
 //jshint esversion:6
 // require les packages installer avec npm
-require('dotenv').config();
+require('dotenv').config(); //zero-dependency module that loads environment variables from a .env file into process.env
 const express = require("express"); //web framework for node
 const fileUpload = require('express-fileupload'); //express middleware for uploading files.
 const bodyParser = require("body-parser"); //Node.js body parsing middleware.
@@ -20,10 +20,10 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use(express.static("public"));
+app.use(express.static("public")); //serve images, CSS files, and JavaScript files in a directory 
 
 app.use(session({ //express-session
-    secret: "Our little secret",
+    secret: process.env.SESSION_SECRET, // key used for signing and/or encrypting cookies. Ensure that random person can't access admin
     resave: false, 
     saveUninitialized: false
 }));
@@ -35,7 +35,11 @@ app.use(fileUpload({
     createParentPath: true
 }));
 
-mongoose.connect("mongodb+srv://sharon:admin@cluster0-uvxzz.mongodb.net/savDB", { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }); //connexion a la bdd savDB
+mongoose.connect("mongodb+srv://sharon:admin@cluster0-uvxzz.mongodb.net/savDB", {  //connexion a la bdd savDB
+    useUnifiedTopology: true, 
+    useNewUrlParser: true, 
+    useCreateIndex: true 
+});
      
 const companySchema = {  //on defini le schema de la db, cela permet de définir les types de variables et de structurer vos données
     name: String,
@@ -78,6 +82,33 @@ app.get("/savs", function (req, res) {  //affichage de la page home
             companies: foundCompanies
         });
     }).sort({name:1}); 
+});
+
+app.get("/phone", function (req, res) {  //affichage de la page home
+    Company.find({'type':/phone/}, function (err, foundCompanies) {
+        res.render("liste-savs", {
+            name: foundCompanies.name,
+            companies: foundCompanies
+        });
+    }).sort({ name: 1 });
+});
+
+app.get("/hardware", function (req, res) {  //affichage de la page home
+    Company.find({ 'type': /hardware/ }, function (err, foundCompanies) {
+        res.render("liste-savs", {
+            name: foundCompanies.name,
+            companies: foundCompanies
+        });
+    }).sort({ name: 1 });
+});
+
+app.get("/computer", function (req, res) {  //affichage de la page home
+    Company.find({ 'type': /computer/ }, function (err, foundCompanies) {
+        res.render("liste-savs", {
+            name: foundCompanies.name,
+            companies: foundCompanies
+        });
+    }).sort({ name: 1 });
 });
 
 app.get("/company", function (req, res) {  //affichage de la page de la société
@@ -239,11 +270,11 @@ app.post("/admin-delete", function (req, res) {
     });
 });
 
-let port = process.env.PORT;
+let port = process.env.PORT; //connexion a heroku
 if (port === null || port == '') {
-    port= 3000;
+    port= 3000;     //connexion au localhost:3000
 }
 
- app.listen(port, function () { //connexion au localhost
+ app.listen(3000, function () { 
     console.log("Server started");
 });
