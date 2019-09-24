@@ -48,13 +48,13 @@
           </td>
       </form>
         <td>
-              <button onclick="return valider()" class="button is-primary valider" style="display: none"  form="<%= company._id %>"  type="submit">Valider</button>
+              <button class="button is-primary valider" style="display: none"  form="<%= company._id %>"  type="submit">Valider</button>
               <button onclick="return edit(this)" class="button is-primary editer">Editer</button> <!--'this' refers to the element that is contained in, so the button element -->
         </td>
         <td>
-          <form method="post" action="/admin-delete" id="del<%= company._id %>">
+          <form method="post" action="/admin-delete">
             <input type="text" class="" value="<%= company._id %>" name="suppr" style="display: none">
-            <button value="<%= company.name %>" class="button" type="submit" form="del<%= company._id %>"><i class="fas fa-trash-alt"></i></button>
+            <button value="<%= company.name %>" class="button" type="submit"><i class="fas fa-trash-alt"></i></button>
           </form>
         </td>
     </tr>

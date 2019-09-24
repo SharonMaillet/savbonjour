@@ -6,6 +6,7 @@
     <meta name="description" content="Tout savoir sur les SAVs des marques les plus populaires ! Un problème avec votre matériel mais impossible de trouver un numéro de SAV ? C'est ici que vous le trouverez !" />
     <meta name="keywords" content="sav, informatique, matériel, ordinateur, téléphone, annuaire" />
     <title>SAV, bonjour - Les pages jaunes des SAVs !</title>
+    <link rel="icon" href="public\img\favicon.ico" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"> <!-- BULMA CDN-->
     <link rel="stylesheet" href="/css/styles.css"> <!-- Mon stylesheet-->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> <!-- Font Awesome-->
@@ -47,8 +48,34 @@
       <a class="navbar-item" href="/computer">
         SAV ordinateur
       </a>
-
     </div>
+
+   <% if (!user) { %>
+    <div class="navbar-end">
+      <a class="navbar-item" href="/login">
+        Se connecter
+      </a>
+
+      <a class="navbar-item" href="/register">
+        S'enregistrer 
+      </a>
+    </div>
+  <% } %>
+
+    <% if (user) { %>
+    <div class="navbar-end">
+      <a class="navbar-item" href="/logout">
+        Se déconnecter
+      </a>
+    <% } %>
+
+    <% if (user && user.username === "admin") { %>
+    <div class="navbar-end">
+      <a class="navbar-item" href="/admin">
+        Panneau Administrateur
+      </a>
+      <% } %>
+
   </div>
 </nav>
 

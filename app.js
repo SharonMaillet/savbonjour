@@ -52,7 +52,8 @@ const companySchema = {  //on defini le schema de la db, cela permet de définir
 
 const userSchema = new mongoose.Schema ({
     username: String, /* I*/
-    password: String
+    password: String,
+    role: Boolean,
 });
 
 userSchema.plugin(passportLocalMongoose); //hash and salt
@@ -66,11 +67,16 @@ passport.use(User.createStrategy());     //a metter apres User car sinon User n'
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.get('*', function (req, res, next) {
+    res.locals.user = req.user || null;
+    return next();
+});
+
 app.get("/", function (req, res) {  //affichage de la page home
     Company.find({}, function (err, foundCompanies) {
         res.render("home", {
             name: foundCompanies.name,
-            companies: foundCompanies
+            companies: foundCompanies,
         });
     }).sort({ name: 1 }); // Ordre Alphabetique
 });
@@ -115,44 +121,65 @@ app.get("/company", function (req, res) {  //affichage de la page de la sociét�
     res.render("company");
 });
 
-app.get("/register", function (req, res) {
-    res.render("register");
+app.get("/register", function (req, res, err) {
+    res.render("register", {msg: ''});
 });
 
 app.post("/register", function (req, res) {
-    User.register({username: req.body.username}, req.body.password, function(err, user) {
-        if (err) {
-            res.redirect("register");
-        } else {
-            passport.authenticate("local")(req, res, function() {
-                res.redirect("admin");
-            });
-        }
-    });
+    if (req.body.password === req.body.password2 && req.body.adminright === "secret") {
+        User.register({username: req.body.username, role: true}, req.body.password, function(err, user) {
+            if (err) {
+                res.render("register", {msg: err});
+                console.log(err);
+                console.log(user.role);
+            } else {
+                passport.authenticate("local")(req, res, function() {
+                    res.redirect("admin");
+                    console.log(user.role);
+                });
+            }
+        });
+    } else if (req.body.password === req.body.password2 && req.body.adminright != "secret") {
+        User.register({ username: req.body.username, role: false }, req.body.password, function (err, user) {
+            if (err) {
+                res.render("register", { msg: err });
+                console.log(err);
+                console.log(user.role);
+            } else {
+                passport.authenticate("local")(req, res, function () {
+                    res.redirect("admin");
+                    console.log(user.role);
+                });
+            }
+        });
+    } else {
+        res.render("register", { msg: 'Les mots de passes ne correspondent pas' });
+    }
 });
 
 
 app.get("/login", function (req, res) {
-    res.render("login");
+    res.render("login", {msg:''});
 });
 
 
-app.post("/login", function (req, res) {
-    const user = new User({
+app.post("/login", function (req, res, next) {
+    const user = User({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
     });
 
-    req.login(user, function (err) {
-        if (err) {
-            res.redirect("/login");
-        } else {
-            passport.authenticate("local")(req, res, function () {
-                res.redirect("admin");
-            });
-        }
-    });
+            passport.authenticate("local", {
+                successRedirect: 'admin',
+                failureRedirect: '/login',
+            })(req, res, next);
+            console.log(user);
+    
+});
 
+app.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
 });
 
 app.get("/company/:CompName", function (req, res, err) {  //affichage de la page de la société
@@ -170,20 +197,25 @@ app.get("/company/:CompName", function (req, res, err) {  //affichage de la page
     });           
 });
 
-app.get("/admin", function (req, res) {  //affichage de la page de la admin
-    if(req.isAuthenticated()) { //si admin est authentifier
-        Company.find({}, function (err, company) {
-            res.render("admin", {
-                name: company.name,
-                phone: company.phone,
-                phone2: company.phone2,
-                mail: company.mail,
-                type: company.type,
-                companies: company
-            });
-        }).sort({ name: 1 });
+app.get("/admin", function (req, res, err) {  //affichage de la page de la admin
+    if (req.user) {
+        if (req.user.role === true) { //si le user est admin
+                Company.find({}, function (err, company) {
+                    res.render("admin", {
+                        name: company.name,
+                        phone: company.phone,
+                        phone2: company.phone2,
+                        mail: company.mail,
+                        type: company.type,
+                        companies: company
+                    });
+                }).sort({ name: 1 });        
+        } else {
+            console.log(req.user.role);
+            res.redirect('/');
+        }        
     } else {
-        res.redirect("login");
+        res.redirect('/login');
     }
 });
 

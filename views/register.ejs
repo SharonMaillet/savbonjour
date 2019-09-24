@@ -1,5 +1,8 @@
 <%- include("partials/header"); -%>
     <div class="container">
+    
+      <% if (msg) { %> <div class="notification is-warning"> <%= msg %> <button class="delete"></button> </div> <% } %>
+     
       <div class="columns is-centered">
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
           <form method="post" action="/register" class="box">
@@ -22,11 +25,22 @@
               </div>
             </div>
             <div class="field">
+              <label for="" class="label">Confirmer le mot de passe</label>
+              <div class="control has-icons-left">
+                <input type="password" class="input" name="password2" required>
+                <span class="icon is-small is-left">
+                  <i class="fa fa-lock"></i>
+                </span>
+              </div>
+            </div>
+
+
+
+            <div class="field">
                 <button class="button" type="submit" name="login">Se connecter</button>
             </div>  
           </form>
         </div>
       </div>
     </div>
-
 <%- include("partials/footer"); -%>

@@ -1,6 +1,9 @@
 <%- include("partials/header"); -%>
 
     <div class="container">
+
+      <% if (msg) { %> <div class="notification is-warning"> <%= msg %> <button class="delete"></button> </div> <% } %>
+      
       <div class="columns is-centered">
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
           <form method="post" action="/login" class="box">
