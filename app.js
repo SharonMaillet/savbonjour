@@ -122,33 +122,17 @@ app.get("/company", function (req, res) {  //affichage de la page de la sociét�
 });
 
 app.get("/register", function (req, res, err) {
-    res.render("register", {msg: ''});
+    res.render("register", { msg: "" });
 });
 
 app.post("/register", function (req, res) {
-    if (req.body.password === req.body.password2 && req.body.adminright === "secret") {
-        User.register({username: req.body.username, role: true}, req.body.password, function(err, user) {
-            if (err) {
-                res.render("register", {msg: err});
-                console.log(err);
-                console.log(user.role);
-            } else {
-                passport.authenticate("local")(req, res, function() {
-                    res.redirect("admin");
-                    console.log(user.role);
-                });
-            }
-        });
-    } else if (req.body.password === req.body.password2 && req.body.adminright != "secret") {
+    if (req.body.password === req.body.password2) {
         User.register({ username: req.body.username, role: false }, req.body.password, function (err, user) {
             if (err) {
-                res.render("register", { msg: err });
-                console.log(err);
-                console.log(user.role);
+                res.render("register", { msg: "L'utilisateur existe déjà" });
             } else {
                 passport.authenticate("local")(req, res, function () {
                     res.redirect("admin");
-                    console.log(user.role);
                 });
             }
         });

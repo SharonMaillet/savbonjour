@@ -50,32 +50,33 @@
       </a>
     </div>
 
-   <% if (!user) { %>
-    <div class="navbar-end">
-      <a class="navbar-item" href="/login">
-        Se connecter
-      </a>
-
-      <a class="navbar-item" href="/register">
-        S'enregistrer 
-      </a>
-    </div>
+<% if (typeof user !== 'undefined') { %>
+  <% if (!user) { %>
+  <div class="navbar-end">
+    <a class="navbar-item" href="/login">
+      Se connecter
+    </a>
+  
+    <a class="navbar-item" href="/register">
+      S'enregistrer
+    </a>
+  </div>
   <% } %>
-
-    <% if (user) { %>
-    <div class="navbar-end">
-      <a class="navbar-item" href="/logout">
-        Se déconnecter
-      </a>
+  
+  <% if (user) { %>
+  <div class="navbar-end">
+    <a class="navbar-item" href="/logout">
+      Se déconnecter
+    </a>
     <% } %>
-
+  
     <% if (user && user.username === "admin") { %>
     <div class="navbar-end">
       <a class="navbar-item" href="/admin">
         Panneau Administrateur
       </a>
       <% } %>
-
+<% } %>
   </div>
 </nav>
 
