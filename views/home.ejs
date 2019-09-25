@@ -1,4 +1,5 @@
 <%- include("partials/header"); -%>
+      <% if (msg) { %> <div class="notification is-warning"> <%= msg %> <button class="delete"></button> </div> <% } %>
 <div class="hero is-large is-primary has-background">
   <img alt="sav-ordinateur" class="hero-background is-transparent" src="/img/sav1.jpg" />
   <div class="hero-body">

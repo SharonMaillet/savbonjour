@@ -51,8 +51,15 @@ const companySchema = {  //on defini le schema de la db, cela permet de définir
 };
 
 const userSchema = new mongoose.Schema ({
-    username: String, /* I*/
-    password: String,
+    username: {
+        type: String,
+        maxlength: 12
+    }, /* I*/
+    password: {
+        type: String,
+        min: 5,
+        max: 15,
+    },
     role: Boolean,
 });
 
@@ -77,6 +84,7 @@ app.get("/", function (req, res) {  //affichage de la page home
         res.render("home", {
             name: foundCompanies.name,
             companies: foundCompanies,
+            msg: ""
         });
     }).sort({ name: 1 }); // Ordre Alphabetique
 });
@@ -126,18 +134,23 @@ app.get("/register", function (req, res, err) {
 });
 
 app.post("/register", function (req, res) {
-    if (req.body.password === req.body.password2) {
-        User.register({ username: req.body.username, role: false }, req.body.password, function (err, user) {
+    let username = req.body.username;
+    let clearUsername = username.toLowerCase().replace(/[^\w\s]/gi, '');
+    console.log(clearUsername);
+
+    if (req.body.password === req.body.password2 && req.body.password.length > 5 && clearUsername) {
+        User.register({ username: clearUsername, role: false }, req.body.password, function (err, user) {
             if (err) {
-                res.render("register", { msg: "L'utilisateur existe déjà" });
+                res.render("register", { msg: "L'utilisateur " + clearUsername +  " existe déjà ou le nom d'utilisateur dépasse les 12 charactères" });
             } else {
                 passport.authenticate("local")(req, res, function () {
-                    res.redirect("admin");
+                    res.redirect("/");
                 });
             }
         });
     } else {
-        res.render("register", { msg: 'Les mots de passes ne correspondent pas' });
+        res.render("register", { msg: 'Les mots de passes ne correspondent pas. Veuillez indiquer un mot de passe de plus de 5 charactères' });
+        console.log(err);
     }
 });
 
@@ -148,17 +161,10 @@ app.get("/login", function (req, res) {
 
 
 app.post("/login", function (req, res, next) {
-    const user = User({
-        username: req.body.username,
-        password: req.body.password,
-    });
-
-            passport.authenticate("local", {
-                successRedirect: 'admin',
-                failureRedirect: '/login',
-            })(req, res, next);
-            console.log(user);
-    
+    passport.authenticate("local", {
+        successRedirect: 'admin',
+        failureRedirect: '/login',
+    })(req, res, next);
 });
 
 app.get('/logout', function (req, res) {
